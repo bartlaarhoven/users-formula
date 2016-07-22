@@ -11,7 +11,9 @@ users:
     # WARNING: If 'empty_password' is set to True, the 'password' statement
     # will be ignored by enabling password-less login for the user.
     empty_password: False
+    system: False
     home: /custom/buser
+    user_dir_mode: 750
     createhome: True
     roomnumber: "A-1"
     workphone: "(555) 555-5555"
@@ -34,6 +36,7 @@ users:
     sudo_defaults:
       - '!requiretty'
     shell: /bin/bash
+    remove_groups: False
     prime_group:
       name: primarygroup
       gid: 500
@@ -81,6 +84,9 @@ users:
         options:
           - "StrictHostKeyChecking yes"
 
+    # Using gitconfig without Git installed will result in an error
+    # https://docs.saltstack.com/en/latest/ref/states/all/salt.states.git.html:
+    # This state module now requires git 1.6.5 (released 10 October 2009) or newer.
     gitconfig:
       user.name: B User
       user.email: buser@example.com
@@ -99,6 +105,7 @@ users:
         33333333
         44444444
         55555555
+    uid: 1001
 
     user_files:
       enabled: True
